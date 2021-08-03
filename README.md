@@ -46,3 +46,7 @@ Check values in 'Latest Data' of zabbix host.
 If you see values - congratulations!
 
 #####To be continued...#####
+
+4.8.21
+New Template uploaded Release 1.0.3
+with bugfixes for items and triggers
