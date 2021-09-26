@@ -50,3 +50,9 @@ If you see values - congratulations!
 4.8.21
 New Template uploaded Release 1.0.3
 with bugfixes for items and triggers
+
+26.09.21
+New Template uploaded Release 1.1.0-Beta
+added all possible values as item which are printed in API url.
+Also added Excel File show the ZBX-key-build.
+Preparing for final Template 1.2.0 now.
