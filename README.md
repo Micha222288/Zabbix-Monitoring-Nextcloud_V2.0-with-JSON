@@ -1,57 +1,70 @@
-# Zabbix-Monitoring-Nextcloud_V2.0-with-JSON
+###### Zabbix-Monitoring-Nextcloud_V2.0-with-JSON
+---------------------------------------------------------
 
-Description:
+DESCRIPTION:
+------------
 
-1.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+### 1. Get your APPPASSWORD ###
+---------------------------------------------------------
+(Executed following command >> BEFORE >> change YOURADMINUSER and YOURADMINPASSWORD)
 
-curl -u CHANGEMEuser:CHANGEMEpassword -H 'OCS-APIRequest: true' https://nc.link.tld/ocs/v2.php/core/getapppassword
+curl -u YOURADMINUSER:YOURADMINPASSWORD -H 'OCS-APIRequest: true' https://YOUR.NEXTCLOUD-URL.TLD/ocs/v2.php/core/getapppassword
 
-2.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+### 2. EXTERNAL MONITORING WITH SSL
+---------------------------------------------------------
 
-EXTERNAL MONITORING WITH SSL change Timeout Value in ZBX Agent and Server both 10 till 30
+(change Timeout Value in ZBX Agent and Server both 10 till 30 - depending on your performnce)
 
-UserParameter=nextcloud,curl -s -u CHANGEMEuser:CHANGEMEapp-passwd https://nc.link.tld/ocs/v2.php/apps/serverinfo/api/v1/info?format=json
-
-######## OR ########
-
-INTERNAL MONITORING LOCAL NO SSL more Performance
-
-UserParameter=nextcloud,curl -s -k -u CHANGEMEuser:CHANGEMEapp-passwd https://127.0.0.1/ocs/v2.php/apps/serverinfo/api/v1/info?format=json
-
-3-1.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+### 3-1 Copy (*.conf)
+---------------------------------------------------------
 
 Copy nextcloudv2.conf to /etc/zabbix/zabbix_agentd.conf.d
 (SLL OR LOCAL depending on your monitoring)
 
-3-2.
+a) EXRTERNAL MONITORING WITH SSL (nextcloudv2_ssl.conf)
+# (Change in file before copying all capital written words) #
+UserParameter=nextcloud,curl -s -u YOURADMINUSER:APPPASSWORD https://YOUR.NEXTCLOUD-URL.TLD/ocs/v2.php/apps/serverinfo/api/v1/info?format=json
 
-Add line to zabbix_agentd.conf
+###### OR ######
 
-Include=/etc/zabbix/zabbix_agentd.conf.d/*.conf and restart Agent and Server
+b) INTERNAL MONITORING LOCAL NO SSL - faster Performance (nextcloudv2_local.conf)
+# (Change in file before copying all capital written words) #
+UserParameter=nextcloud,curl -s -k -u YOURADMINUSER:APPPASSWORD https://127.0.0.1/ocs/v2.php/apps/serverinfo/api/v1/info?format=json
 
-4.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+### 3-2 Add line to zabbix_agentd.conf
+---------------------------------------------------------
+Include=/etc/zabbix/zabbix_agentd.conf.d/*.conf
 
-Add 'nextcloudv2.xml' to Server templates
+After this restart your ZBX Server
 
-5.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+### 4. Add 'zbx_nextcloud2-0_V1-1-0_Beta-xml' to Server templates
+---------------------------------------------------------
 
-You are ready to go. Wait at least 10 minutes or execute Item 'Nextcloud' of host.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+### 5. You are ready to go. Wait at least 10 minutes or execute Item 'Nextcloud' of host.
+---------------------------------------------------------
 
-6.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+### 6. Check values in 'Latest Data' of zabbix host.
+---------------------------------------------------------
 
-Check values in 'Latest Data' of zabbix host.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+### 7. If you see values - congratulations!
+---------------------------------------------------------
 
-7.
-
-If you see values - congratulations!
-
-#####To be continued...#####
-
-4.8.21
+-----------------------------------------------------------------------------------------------------------------------------------------------
+###### Release Notes/Updates: ######
+-----------------------------------------------------------------------------------------------------------------------------------------------
+## 04.08.2021
 New Template uploaded Release 1.0.3
 with bugfixes for items and triggers
 
-26.09.21
+## 26.09.2021
 New Template uploaded Release 1.1.0-Beta
 added all possible values as item which are printed in API url.
 Also added Excel File show the ZBX-key-build.
